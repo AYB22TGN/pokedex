@@ -1,0 +1,37 @@
+<div class="bg-[#DC0A2D] p-4 flex items-center gap-4">
+  <!-- Titre -->
+  <div class="flex items-center text-white text-2xl font-bold">
+    <img
+      src="/assets/images/pokedex-logo.svg"
+      alt="Pokédex Logo"
+      class="h-10 mr-2 filter invert"
+    />
+    Pokédex
+  </div>
+
+  <!-- Barre de recherche -->
+  <div class="relative flex-1 max-w-md">
+    <img
+    src="/assets/images/search.svg"
+    alt="Search"
+    class="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5"
+  />
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Chercher un pokemon..."
+      class="w-full p-3 pl-12 rounded-full bg-white shadow-md outline-none"
+      (input)="filterPokemons()"
+    />
+  </div>
+</div>
+
+<!-- Liste des Pokémon -->
+<div class="p-4 bg-[#DC0A2D]">
+  <div class="bg-white rounded-xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 p-8">
+    <app-pokedex-card
+      *ngFor="let pokemon of filteredPokemons"
+      [pokemon]="pokemon"
+    ></app-pokedex-card>
+  </div>
+</div>

@@ -1,0 +1,111 @@
+<div
+  *ngIf="pokemon"
+  class="max-w-md mx-auto p-6 bg-white mt-4 rounded-lg shadow-lg relative"
+  [ngStyle]="{ 'background-color': getTypeColor(pokemon.types[0]?.type.name) }"
+>
+<!-- Header -->
+<div class="flex justify-between items-center text-gray-700 text-xl font-bold">
+  <div class="flex items-center">
+    <button (click)="goBack()" class="bg-transparent invert border-0 p-0">
+      <img src="/assets/images/back-arrow.svg" alt="Back" class="h-6 w-6" />
+    </button>
+    <span class="text-white text-3xl capitalize ml-2">{{ pokemon.name }}</span>
+  </div>
+  <span class="text-gray-500">#{{ pokemon.id }}</span>
+</div>
+
+ <!-- Image du Pokémon -->
+<div class="flex justify-center mt-4 relative">
+  <button
+    *ngIf="pokemon.id > 1"
+    (click)="navigatePokemon(-1)"
+    class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 rounded-full p-2 hover:bg-opacity-100"
+  >
+    <img
+      src="/assets/images/previous-arrow.svg"
+      alt="Previous"
+      class="h-6 w-6"
+    />
+  </button>
+  <img
+    [src]="pokemon.sprites.other['official-artwork'].front_default"
+    [alt]="pokemon.name"
+    class="h-48 w-48 relative z-10"
+  />
+  <button
+    *ngIf="pokemon.id < 151"
+    (click)="navigatePokemon(1)"
+    class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 rounded-full p-2 hover:bg-opacity-100"
+  >
+    <img src="/assets/images/next-arrow.svg" alt="Next" class="h-6 w-6" />
+  </button>
+</div>
+
+<!-- Informations générales -->
+<div class="bg-gray-100 p-4 rounded-lg shadow-md -mt-10 pt-10">
+  <!-- Types -->
+  <div class="flex justify-center gap-2 mt-4">
+    <span
+      *ngFor="let type of pokemon.types"
+      class="px-4 py-1 rounded-full text-white text-sm capitalize"
+      [ngStyle]="{ 'background-color': getTypeColor(type.type.name) }"
+    >
+      {{ type.type.name }}
+    </span>
+  </div>
+  <h3
+    class="text-lg font-bold text-gray-700 text-center"
+    [ngStyle]="{ color: getTypeColor(pokemon.types[0]?.type.name) }"
+  >
+  <!-- Types -->
+    About
+  </h3>
+  <div class="grid grid-cols-3 text-center text-gray-600 mt-2">
+    <div>
+      <p class="text-lg font-bold">{{ pokemon.weight / 10 }} kg</p>
+      <p class="text-sm">Weight</p>
+    </div>
+    <div>
+      <p class="text-lg font-bold">{{ pokemon.height / 10 }} m</p>
+      <p class="text-sm">Height</p>
+    </div>
+    <div>
+      <ng-container *ngFor="let ability of getAbilities()">
+        <p class="text-lg font-bold capitalize">{{ ability }}</p>
+      </ng-container>
+      <p class="text-sm">Abilities</p>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="mt-6 text-gray-600 text-sm text-center px-4">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc iaculis eros
+      vitae tellus condimentum.
+    </div>
+
+    <!-- Statistiques -->
+    <div class="mt-6">
+      <h3
+        class="text-lg font-bold text-gray-700 text-center"
+        [ngStyle]="{ color: getTypeColor(pokemon.types[0]?.type.name) }"
+      >
+        Base Stats
+      </h3>
+      <div *ngFor="let stat of pokemon.stats" class="mt-2">
+        <div class="flex justify-between">
+          <p class="text-gray-600 text-sm uppercase">{{ stat.stat.name }}</p>
+          <p class="text-gray-700 text-sm font-bold">{{ stat.base_stat }}</p>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-4">
+          <div
+            class="h-4 rounded-full"
+            [ngStyle]="{
+              'background-color': getTypeColor(pokemon.types[0]?.type.name),
+              width: (stat.base_stat > 100 ? 100 : stat.base_stat) + '%'
+            }"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
