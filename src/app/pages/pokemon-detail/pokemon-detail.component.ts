@@ -3,12 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PokemonService } from '../../services/pokemon.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { PokemonStatsDiagramComponent } from '../../components/pokemon-stats-diagram/pokemon-stats-diagram.component';
+
 
 @Component({
   selector: 'app-pokemon-detail',
   templateUrl: './pokemon-detail.component.html',
   standalone: true,
-  imports: [CommonModule, RouterModule]
+  imports: [CommonModule, RouterModule, PokemonStatsDiagramComponent]
 })
 export class PokemonDetailComponent {
   pokemon: any;
